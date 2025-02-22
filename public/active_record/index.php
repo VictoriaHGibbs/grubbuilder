@@ -2,8 +2,8 @@
 require_once('../../private/initialize.php');
 
 // require_login();
-$user_id = $_SESSION['user_id'] ?? false;
-$recipes = Recipe::find_by_user($user_id);
+$id = $_SESSION['user_id'] ?? false;
+$recipes = Recipe::find_by_user_id($id);
 
 
 $page_title = 'User Menu/ Main Profile Page';
@@ -11,7 +11,7 @@ $page_title = 'User Menu/ Main Profile Page';
 include(SHARED_PATH . '/user_header.php');
 ?>
 
-<h2>Welcome back <?php echo h(User::get_username_by_id($user_id)); ?> </h2>
+<h2>Welcome back <?php echo h(User::get_username_by_id($id)); ?> </h2>
 <ul>
 
   <!-- will be for admin only  -->
@@ -31,7 +31,7 @@ include(SHARED_PATH . '/user_header.php');
 
 <?php foreach($recipes as $recipe) { ?>
   <section class="recipe-card-preview">
-    <a href="recipes/show.php?recipe_id=<?php echo $recipe->recipe_id; ?>">
+    <a href="recipes/show.php?id=<?php echo $recipe->id; ?>">
     <h3><?php echo h($recipe->recipe_title); ?></h3>
     <p><?php echo h($recipe->description); ?></p>
     <p><?php echo find_value_from_lookup(h($recipe->visibility_id), 'visibility'); ?></p>

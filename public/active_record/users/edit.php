@@ -4,11 +4,11 @@ require_once('../../../private/initialize.php');
 
 // require_admin_login();
 
-if (!isset($_GET['user_id'])) {
+if (!isset($_GET['id'])) {
     redirect_to(url_for('/active_record/users/index.php'));
 }
-$user_id = $_GET['user_id'];
-$user = User::find_by_pk($user_id);
+$id = $_GET['id'];
+$user = User::find_by_id($id);
 if ($user == false) {
     redirect_to(url_for('/active_record/users/index.php'));
 }
@@ -22,7 +22,7 @@ if (is_post_request()) {
 
     if ($result === true) {
         $session->message('The user was updated successfully.');
-        redirect_to(url_for('/active_record/users/show.php?user_id=' . $user_id));
+        redirect_to(url_for('/active_record/users/show.php?id=' . $id));
     } else {
         // show errors
     }
@@ -47,7 +47,7 @@ if (is_post_request()) {
 
     <?php echo display_errors($user->errors); ?>
 
-    <form action="<?php echo url_for('/active_record/users/edit.php?user_id=' . h(u($user_id))); ?>" method="post">
+    <form action="<?php echo url_for('/active_record/users/edit.php?id=' . h(u($id))); ?>" method="post">
 
       <?php include('form_fields.php'); ?>
 

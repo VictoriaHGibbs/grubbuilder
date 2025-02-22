@@ -111,7 +111,7 @@ function has_valid_email_format($value)
 function has_unique_username($username, $current_id = "0")
 {
   $user = User::find_by_username($username);
-  if ($user === false || $user->user_id == $current_id) {
+  if ($user === false || $user->id == $current_id) {
     // is unique
     return true;
   } else {

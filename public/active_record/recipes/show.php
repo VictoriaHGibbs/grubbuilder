@@ -1,9 +1,9 @@
 <?php
 require_once('../../../private/initialize.php');
 
-$id = $_GET['recipe_id'] ?? false;
+$id = $_GET['id'] ?? false;
 
-$recipe = Recipe::find_by_pk($id);
+$recipe = Recipe::find_by_id($id);
 
 $page_title = 'Detail: ' . $recipe->recipe_title;
 

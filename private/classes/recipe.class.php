@@ -3,10 +3,10 @@
 class Recipe extends DatabaseObject {
 
   static public $table_name = 'recipe';
-  static public $db_columns = ['recipe_id', 'user_id', 'recipe_title', 'prep_time_minutes', 'cook_time_minutes', 'description', 'created_at', 'yield', 'measurement_id', 'servings', 'visibility_id'];
-  static public $primary_key = 'recipe_id';
+  static public $db_columns = ['id', 'user_id', 'recipe_title', 'prep_time_minutes', 'cook_time_minutes', 'description', 'created_at', 'yield', 'measurement_id', 'servings', 'visibility_id'];
+
   
-  public $recipe_id;
+  public $id;
   public $user_id;
   public $recipe_title;
   public $prep_time_minutes;
@@ -22,12 +22,12 @@ class Recipe extends DatabaseObject {
 
 
   public function __construct($args = []) {
-    $this->user_id = $args['user_id'] ?? '';
+    $this->user_id = $args['user_id'] ?? $_SESSION['user_id'];
     $this->recipe_title = $args['recipe_title'] ?? '';
     $this->prep_time_minutes = $args['prep_time_minutes'] ?? '';
     $this->cook_time_minutes = $args['cook_time_minutes'] ?? '';
     $this->description = $args['description'] ?? '';
-    $this->created_at = $args['created_at'] ?? '';
+    $this->created_at = $args['created_at'] ?? date('Y-m-d H:i:s');
     $this->yield = $args['yield'] ?? '';
     $this->measurement_id = $args['measurement_id'] ?? '';
     $this->servings = $args['servings'] ?? '';
@@ -36,12 +36,12 @@ class Recipe extends DatabaseObject {
 
 // Display recipe info, TESTING PURPOSES
   public function display() {
-    return ("Recipe ID: " . h($this->recipe_id) . "<br>" . h($this->recipe_title) . "<br>" . h($this->description) . "<br>User ID:" . h($this->user_id));
+    return ("Recipe ID: " . h($this->id) . "<br>" . h($this->recipe_title) . "<br>" . h($this->description) . "<br>User ID:" . h($this->user_id) . "<br>");
   }
 
 // Retrieve associated ingredients
   static public function get_ingredients($recipe_id) {
-    return Ingredient::find_by_recipe($recipe_id);
+    return Ingredient::find_by_recipe_id($recipe_id);
   }
 
 // Display ingredients
@@ -58,7 +58,7 @@ class Recipe extends DatabaseObject {
   
 // Retrieve associated directions
   static public function get_directions($recipe_id) {
-    return Direction::find_by_recipe($recipe_id);
+    return Direction::find_by_recipe_id($recipe_id);
   }
 
 // Display directions

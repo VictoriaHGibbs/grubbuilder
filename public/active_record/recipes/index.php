@@ -17,7 +17,7 @@ include(SHARED_PATH . '/user_header.php');
 
 <?php foreach($recipes as $recipe) { ?>
   <section class="recipe-card-preview">
-    <a href="show.php?recipe_id=<?php echo $recipe->recipe_id; ?>">
+    <a href="show.php?id=<?php echo $recipe->id; ?>">
     <h3><?php echo h($recipe->recipe_title); ?></h3>
     <p><?php echo h($recipe->user_info($recipe)) ?></p>
     <p><?php echo h($recipe->description); ?></p>

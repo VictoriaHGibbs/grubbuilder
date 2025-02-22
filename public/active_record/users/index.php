@@ -31,7 +31,7 @@ include(SHARED_PATH . '/user_header.php');
 
     <?php foreach ($users as $user) { ?>
         <tr>
-            <td><?php echo h($user->user_id); ?></td>
+            <td><?php echo h($user->id); ?></td>
             <td><?php echo h($user->username); ?></td>
             <td><?php echo h($user->f_name); ?></td>
             <td><?php echo h($user->l_name); ?></td>
@@ -40,9 +40,9 @@ include(SHARED_PATH . '/user_header.php');
             <td><?php echo h($user->active_display()); ?></td>
             <td><?php echo h($user->joined_at); ?></td>
 
-            <td><a href="<?php echo url_for('/active_record/users/show.php?user_id=' . h(u($user->user_id))); ?>">View</a></td>
-            <td><a href="<?php echo url_for('/active_record/users/edit.php?user_id=' . h(u($user->user_id))); ?>">Edit</a></td>
-            <td><a href="<?php echo url_for('/active_record/users/delete.php?user_id=' . h(u($user->user_id))); ?>">Delete</a></td>
+            <td><a href="<?php echo url_for('/active_record/users/show.php?id=' . h(u($user->id))); ?>">View</a></td>
+            <td><a href="<?php echo url_for('/active_record/users/edit.php?id=' . h(u($user->id))); ?>">Edit</a></td>
+            <td><a href="<?php echo url_for('/active_record/users/delete.php?id=' . h(u($user->id))); ?>">Delete</a></td>
         </tr>
     <?php } ?>
 </table>

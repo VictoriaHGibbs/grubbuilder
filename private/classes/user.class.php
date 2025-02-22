@@ -4,10 +4,9 @@ class User extends DatabaseObject
 {
 
     static public $table_name = 'user';
-    static public $db_columns = ['user_id', 'username', 'profile_image_url', 'f_name', 'l_name', 'email_address', 'password_hash', 'joined_at', 'role_id', 'active'];
-    static public $primary_key = 'user_id';
+    static public $db_columns = ['id', 'username', 'profile_image_url', 'f_name', 'l_name', 'email_address', 'password_hash', 'joined_at', 'role_id', 'active'];
     
-    public $user_id;
+    public $id;
     public $username;
     public $profile_image_url;
     public $f_name;
@@ -25,7 +24,6 @@ class User extends DatabaseObject
 
     public function __construct($args = [])
     {
-        // $this->user_id = $args['user_id'] ?? '';
         $this->username = $args['username'] ?? '';
         $this->profile_image_url = $args['profile_image_url'] ?? NULL;
         $this->f_name = $args['f_name'] ?? '';
@@ -39,10 +37,10 @@ class User extends DatabaseObject
         $this->confirm_password = $args['confirm_password'] ?? '';
     }
 
-    // Retrieve username from a $user_id
-    static public function get_username_by_id($user_id)
+    // Retrieve username from a $id
+    static public function get_username_by_id($id)
     {
-        $user = self::find_by_pk($user_id);
+        $user = self::find_by_id($id);
         return $user ? $user->username : null;
     }
 
@@ -90,7 +88,7 @@ class User extends DatabaseObject
         $this->errors[] = "Username cannot be blank.";
       } elseif (!has_length($this->username, array('min' => 5, 'max' => 20))) {
         $this->errors[] = "Username must be between 5 and 20 characters.";
-      } elseif (!has_unique_username($this->username, $this->user_id ?? 0)) {
+      } elseif (!has_unique_username($this->username, $this->id ?? 0)) {
         $this->errors[] = "Username not allowed. Try another.";
       }
   

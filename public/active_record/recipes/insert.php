@@ -6,38 +6,38 @@ $database->begin_transaction();
 
 try {
 // Prepare and bind RECIPE table
-  $stmt1 = $database->prepare("INSERT INTO recipe (user_id, recipe_title, prep_time_minutes, cook_time_minutes, description, yield, measurement_id, servings, visibility_id) VALUES (?,?,?,?,?,?,?,?,?)");
-  $stmt1->bind_param("isiisiiii", $_SESSION['user_id'], $_POST['recipe_title'], $_POST['prep_time_minutes'], $_POST['cook_time_minutes'], $_POST['description'], $_POST['yield'], $_POST['yield_measurement_id'], $_POST['servings'], $_POST['visibility_id']);
-  $stmt1->execute();
+  $stmt1 = $_POST['recipe'];
+  $recipe = new Recipe($stmt1);
+  $stmt1_result = $recipe->save();
 
 // Get last inserted recipe_id
   $recipe_id = $database->insert_id;
 
 // Prepare INGREDIENT table
-  $stmt2 = $database->prepare("INSERT INTO ingredient (recipe_id, ingredient_line_item, quantity, ingredient_name, measurement_id, sort_order) VALUES (?,?,?,?,?,?)");
+  $stmt2 = $_POST['ingredient'];
 // Loop 
-  foreach ($_POST['quantity'] as $index => $quantity) {
+  foreach ($stmt2 as $index) {
     $ingredient_line_item = $index + 1;
-    $stmt2->bind_param("iiisii", $recipe_id, $ingredient_line_item, $quantity, $_POST['measurement_id'][$index], $_POST['ingredient_name'][$index], $ingredient_line_item);
-    $stmt2->execute();
+    $ingredient = new Ingredient($stmt2);
+    $stmt2_result = $ingredient->save();
   }
 // Prepare and bind DIRECTION table
-  $stmt3 = $database->prepare("INSERT INTO direction (recipe_id, direction_line_item, direction_text, sort_order) VALUES (?,?,?,?)");
+  $stmt3 = $_POST['direction'];
 // Loop
-  foreach ($_POST['direction_text'] as $index => $direction_text) {
+  foreach ($stmt3 as $index) {
     $direction_line_item = $index + 1;
-    $stmt3->bind_param("iisi", $recipe_id, $direction_line_item, $_POST['direction_text'], $direction_line_item);
-    $stmt3->execute();
+    $direction = new Direction($stmt3);
+    $stmt3_result = $direction->save();
   }
 // Check if image
-  if (has_presence($_POST['image_url'])) {
+  if (has_presence($_POST['image'])) {
 // Prepare and bind IMAGE table
-    $stmt4 = $database->prepare("INSERT INTO image (recipe_id, image_line_item, image_url, sort_order) VALUES (?,?,?,?)");
+    $stmt4 = $_POST['image'];
 // Loop
-    foreach ($_POST['image_url'] as $index => $image_url) {
-    $image_line_item = $index + 1;
-    $stmt4->bind_param("iisi", $recipe_id, $image_line_item, $_POST['image_url'], $image_line_item);
-    $stmt4->execute();
+    foreach ($stmt4 as $index) {
+      $image_line_item = $index + 1;
+      $image = new Image($stmt4);
+      $stmt4_result = $image->save();
     }
   }
 // Check if video

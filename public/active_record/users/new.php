@@ -12,9 +12,9 @@ if (is_post_request()) {
 
 
     if ($result === true) {
-        $new_id = $user->user_id;
+        $new_id = $user->id;
         $session->message('The user was created successfully.');
-        redirect_to(url_for('/active_record/users/show.php?user_id=' . $new_id));
+        redirect_to(url_for('/active_record/users/show.php?id=' . $new_id));
     } else {
         // show errors
     }

@@ -4,11 +4,11 @@ require_once('../../../private/initialize.php');
 
 // require_login();
 
-if(!isset($_GET['user_id'])) {
+if(!isset($_GET['id'])) {
   redirect_to(url_for('/active_record/users/index.php'));
 }
-$user_id = $_GET['user_id'];
-$user = User::find_by_pk($user_id);
+$id = $_GET['id'];
+$user = User::find_by_id($id);
 if($user == false) {
   redirect_to(url_for('/active_record/users/index.php'));
 }
@@ -33,7 +33,7 @@ if(is_post_request()) {
     <p>Are you sure you want to delete this user?</p>
     <p><?php echo h($user->username); ?></p>
 
-    <form action="<?php echo url_for('/active_record/users/delete.php?user_id=' . h(u($user_id))); ?>" method="post">
+    <form action="<?php echo url_for('/active_record/users/delete.php?id=' . h(u($id))); ?>" method="post">
 
         <input type="submit" name="commit" value="Delete User">
      

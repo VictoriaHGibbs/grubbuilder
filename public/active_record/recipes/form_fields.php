@@ -79,7 +79,7 @@
   </fieldset>
 
   <label for="youtube_url">YouTube Video Share Link - PLACEHOLDER:</label>
-  <input type="text" id="youtube_url" name="youtube_url" required>
+  <input type="text" id="youtube_url" name="youtube_url">
   <br>
 
   <label for="meal_type">Select Meal Type:</label>

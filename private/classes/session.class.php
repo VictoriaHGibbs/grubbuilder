@@ -20,7 +20,7 @@ class Session
     if ($user) {
       // prevent session fixation attacks
       session_regenerate_id();
-      $this->user_id = $_SESSION['user_id'] = $user->user_id;
+      $this->user_id = $_SESSION['user_id'] = $user->id;
       $this->username = $_SESSION['username'] = $user->username;
       $this->last_login = $_SESSION['last_login'] = time();
       $this->role_id = $_SESSION['role_id'] = $user->role_id;
