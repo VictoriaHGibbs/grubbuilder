@@ -1,9 +1,9 @@
 <?php
 require_once('../../../private/initialize.php');
 
-$id = $_GET['id'] ?? false;
+$id = $_GET['user_id'] ?? false;
 
-$user = User::find_by_id($id);
+$user = User::find_by_pk($id);
 
 $page_title = 'Show User: ' . $user->username;
 

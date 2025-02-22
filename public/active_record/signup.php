@@ -11,8 +11,9 @@ if (is_post_request()) {
 
 
   if ($result === true) {
-    $new_id = $user->id;
-    redirect_to(url_for('/active_record/login.php'));
+    $new_id = $user->user_id;
+    $session->message('Welcome! Your account was created successfully.');
+    redirect_to(url_for('/active_record/index.php'));
   } else {
     // show errors
   }
